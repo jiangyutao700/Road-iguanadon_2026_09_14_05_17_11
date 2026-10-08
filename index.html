@@ -1,18 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.4.1/dist/p5.sound.min.js"></script>
-    
-    
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>江雨陶 · 个人作品集</title>
+<style>
+  :root {
+    --grad: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+    --text: #1f2333;
+    --text-soft: #6b7280;
+    --card-bg: #ffffff;
+    --bg: #f7f7fb;
+  }
 
-  </head>
-  <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
-  </body>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    text-align: center;
+    padding: 96px 24px 72px;
+    background: var(--grad);
+    color: #fff;
+  }
+
+  .avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+    background: #fff;
+  }
+
+  .avatar-placeholder {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    color: #6366f1;
+    background: #fff;
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+  }
+
+  .hero h1 {
+    margin-top: 24px;
+    font-size: 40px;
+    letter-spacing: 2px;
+  }
+
+  .hero p {
+    margin-top: 12px;
+    font-size: 18px;
+    opacity: 0.92;
+  }
+
+  /* ---------- Works ---------- */
+  .works {
+    flex: 1;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(31, 35, 51, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.25);
+  }
+
+  .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    padding: 20px 22px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card h3 {
+    font-size: 19px;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-soft);
+    flex: 1;
+  }
+
+  .card .tag {
+    margin-top: 16px;
+    align-self: flex-start;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    color: #6d28d9;
+    background: rgba(139, 92, 246, 0.12);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: #171a2b;
+    color: #cbd0e0;
+    text-align: center;
+    padding: 36px 24px;
+  }
+
+  footer .links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  footer a {
+    color: #cbd0e0;
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+  }
+
+  footer a:hover {
+    color: #a78bfa;
+  }
+
+  footer .copyright {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #7c8199;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 顶部：头像 + 姓名 + 简介 -->
+  <header class="hero">
+    <!-- 头像占位：可将下一行替换为 <img class="avatar" src="你的头像地址" alt="江雨陶" /> -->
+    <div class="avatar-placeholder">江</div>
+    <h1>江雨陶</h1>
+    <p>热爱创造的开发者 · 用代码与设计构建有温度的产品</p>
+  </header>
+
+  <!-- 中部：作品卡片 -->
+  <main class="works">
+    <h2 class="section-title">精选作品</h2>
+    <div class="cards">
+      <article class="card">
+        <img src="https://picsum.photos/seed/project1/600/360" alt="作品一封面" />
+        <div class="card-body">
+          <h3>云端笔记应用</h3>
+          <p>一款支持多端同步、Markdown 渲染与全文检索的笔记工具，专注写作体验。</p>
+          <span class="tag">Web App</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/project2/600/360" alt="作品二封面" />
+        <div class="card-body">
+          <h3>数据可视化平台</h3>
+          <p>面向团队的可视化仪表盘，拖拽式配置图表，实时展示业务核心指标。</p>
+          <span class="tag">可视化</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://picsum.photos/seed/project3/600/360" alt="作品三封面" />
+        <div class="card-body">
+          <h3>AI 效率工具集</h3>
+          <p>集成智能摘要、翻译与代码补全的浏览器插件，让日常工作更高效。</p>
+          <span class="tag">AI 工具</span>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- 底部：联系方式 -->
+  <footer>
+    <div class="links">
+      <a href="mailto:hello@jiangyutao.dev">📧 hello@jiangyutao.dev</a>
+      <a href="https://github.com/jiangyutao" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+            -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+            -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82
+            .64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+            .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+            1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+    <p class="copyright">© 2026 江雨陶 · 保持热爱，奔赴山海</p>
+  </footer>
+
+</body>
 </html>
